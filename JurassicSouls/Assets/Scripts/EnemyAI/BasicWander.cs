@@ -14,7 +14,7 @@ public class BasicWander : MonoBehaviour
     public float xPos1;
     public float xPos2;
 
-    float speed;
+    public float speed = 5;
     bool goToWaypoint = true;
 
     void Update()
@@ -33,12 +33,16 @@ public class BasicWander : MonoBehaviour
         rand = new Vector3(Random.Range(xPos1, xPos2), 0, Random.Range(zPos1, zPos2));
 
         //run this loop while the position has not been reached
-        while (this.transform.position != (rand -= 2))
+        while (goToWaypoint != true)
         {
             //TODO:: Setup an interrupt state
             float step = speed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, rand, step);
+
+
+            if (this.transform.position.x >= rand.x && this.transform.position.z >= rand.z) {
+                goToWaypoint = true;
+            }
         }
-            goToWaypoint = true; 
     }
 }
